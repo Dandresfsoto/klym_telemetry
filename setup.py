@@ -8,7 +8,7 @@ HERE = path.abspath(path.dirname(__file__))
 with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
-with open('requirements.txt') as f:
+with open(path.join(HERE, 'requeriments.txt')) as f:
     required = f.read().splitlines()
 
 setup(
