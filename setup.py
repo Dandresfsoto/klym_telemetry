@@ -8,6 +8,9 @@ HERE = path.abspath(path.dirname(__file__))
 with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+
 setup(
     name="klym_telemetry",
     version="0.1.0",
@@ -31,14 +34,5 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Operating System :: OS Independent"
     ],
-    install_requires=[
-        "fastapi",
-        "requests ==2.28.2",
-        "opentelemetry-instrumentation-fastapi ==0.38b0",
-        "opentelemetry-exporter-otlp-proto-grpc ==1.17.0",
-        "opentelemetry-propagator-aws-xray ==1.0.1",
-        "opentelemetry-sdk-extension-aws ==2.0.1",
-        "opentelemetry-instrumentation-sqlalchemy ==0.38b0",
-        "opentelemetry-instrumentation-requests ==0.38b0"
-    ]
+    install_requires=[required]
 )

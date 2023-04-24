@@ -1,12 +1,11 @@
 import logging
 
-from fastapi import FastAPI
 from opentelemetry import propagate, trace, metrics
 from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.instrumentation.django import DjangoInstrumentor
+from opentelemetry.instrumentation.psycopg2 import Psycopg2Instrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
-from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
 from opentelemetry.propagators.aws import AwsXRayPropagator
 from opentelemetry.sdk.extension.aws.trace import AwsXRayIdGenerator
 from opentelemetry.sdk.metrics import MeterProvider
@@ -14,12 +13,11 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from sqlalchemy import Engine
 
 logger = logging.getLogger(__name__)
 
 
-def instrument_app(app: FastAPI, service_name: str, otel_collector_endpoint: str, engine: Engine | None = None) -> None:
+def instrument_app(service_name: str, otel_collector_endpoint: str, engine: bool = False) -> None:
     try:
         propagate.set_global_textmap(AwsXRayPropagator())
 
@@ -41,16 +39,12 @@ def instrument_app(app: FastAPI, service_name: str, otel_collector_endpoint: str
 
         metrics.set_meter_provider(meter_provider)
 
-        FastAPIInstrumentor.instrument_app(app, tracer_provider=tracer_provider, meter_provider=meter_provider,)
+        DjangoInstrumentor().instrument(tracer_provider=tracer_provider, meter_provider=meter_provider,)
 
         RequestsInstrumentor().instrument()
 
         if engine:
-            SQLAlchemyInstrumentor().instrument(
-                engine=engine,
-                enable_commenter=True,
-                commenter_options={},
-            )
+            Psycopg2Instrumentor().instrument(enable_commenter=True, commenter_options={},)
 
     except Exception:  # pylint: disable=broad-exception-caught
         logger.exception("No telemetry gateway configured")
