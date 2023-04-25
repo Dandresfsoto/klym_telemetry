@@ -21,7 +21,7 @@ from klym_telemetry.utils import instrument
 3. Initialize automatic instrumentation
 
 ```python
-instrument_app(app, service_name, collector_url)
+instrument_app(app_type='fastapi', app=app, service_name="test-klym-microservice", endpoint="http://localhost:4317")
 ```
 Full example:
 
@@ -29,11 +29,11 @@ Full example:
 import time
 
 from fastapi import FastAPI
-from klym_telemetry.instrumenters.fastapi import instrument_app
+from klym_telemetry.instrumenters import instrument_app
 from klym_telemetry.utils import instrument, klym_telemetry
 
 app = FastAPI()
-instrument_app(app, "test-klym-microservice", "http://172.25.64.1:4317")
+instrument_app(app_type='fastapi', app=app, service_name="test-klym-microservice", endpoint="http://localhost:4317")
 
 
 @instrument(private_methods=True, attributes={"description": "Class to say hello"})

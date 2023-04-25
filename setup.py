@@ -34,5 +34,6 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Operating System :: OS Independent"
     ],
-    install_requires=[required]
+    install_requires=[required],
+    python_requires='>=3.6',
 )
