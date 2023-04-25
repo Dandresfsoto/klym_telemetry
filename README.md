@@ -8,10 +8,10 @@ pip install git+https://github.com/Dandresfsoto/klym_telemetry.git#egg=klym_tele
 
 ### Get started
 #### Instrumenting a fastapi app
-1. Import the instrumenter
+1. Import klym instrumenter
 
 ```python
-from klym_telemetry.instrumenters.fastapi import instrument_app
+from klym_telemetry.instrumenters import instrument_app
 ```
 2. Import instrument decorator
 
