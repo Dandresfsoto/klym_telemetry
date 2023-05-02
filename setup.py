@@ -1,19 +1,16 @@
 from codecs import open
 from os import path
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 HERE = path.abspath(path.dirname(__file__))
 
 with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
-with open(path.join(HERE, 'requeriments.txt')) as f:
-    required = f.read().splitlines()
-
 setup(
-    name="klym_telemetry",
-    version="0.1.0",
+    name="klym-telemetry",
+    version="0.1.3",
     description="Scaffold library",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -34,6 +31,18 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Operating System :: OS Independent"
     ],
-    install_requires=[required],
+    include_package_data=True,
+    packages=find_packages('.', exclude=['tests', 'tests.*']),
+    install_requires=[
+        'opentelemetry-instrumentation-django~=0.38b0',
+        'opentelemetry-instrumentation-fastapi~=0.38b0',
+        'opentelemetry-instrumentation-requests~=0.38b0',
+        'opentelemetry-instrumentation-sqlalchemy~=0.38b0',
+        'opentelemetry-instrumentation-psycopg2~=0.38b0',
+        'opentelemetry-instrumentation-celery~=0.38b0',
+        'opentelemetry-exporter-otlp-proto-grpc~=1.17.0',
+        'opentelemetry-propagator-aws-xray~=1.0.1',
+        'opentelemetry-sdk-extension-aws~=2.0.1'
+    ],
     python_requires='>=3.6',
 )
