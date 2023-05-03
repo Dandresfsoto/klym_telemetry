@@ -22,4 +22,3 @@ class _FastAPIInstrumentor(KLYMInstrumentor):
             meter_provider=self.meter_provider,
             excluded_urls=self._excluded_urls,
         )
-        RequestsInstrumentor().instrument()

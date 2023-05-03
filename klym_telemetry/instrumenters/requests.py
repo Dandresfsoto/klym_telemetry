@@ -1,15 +1,15 @@
-from opentelemetry.instrumentation.django import DjangoInstrumentor
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
 
 from klym_telemetry.instrumenters.base import KLYMInstrumentor
 
 
-class _DjangoInstrumentor(KLYMInstrumentor):
+class _RequestsInstrumentor(KLYMInstrumentor):
 
     def __init__(self, service_name: str, endpoint: str) -> None:
         super().__init__(service_name=service_name, endpoint=endpoint)
 
     def instrument(self):
-        DjangoInstrumentor().instrument(
+        RequestsInstrumentor().instrument(
             tracer_provider=self.tracer_provider,
             meter_provider=self.meter_provider
         )

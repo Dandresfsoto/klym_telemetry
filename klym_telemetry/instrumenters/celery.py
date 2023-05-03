@@ -1,5 +1,4 @@
 from opentelemetry.instrumentation.celery import CeleryInstrumentor
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
 
 from klym_telemetry.instrumenters.base import KLYMInstrumentor
 
@@ -14,4 +13,3 @@ class _CeleryInstrumentor(KLYMInstrumentor):
             tracer_provider=self.tracer_provider,
             meter_provider=self.meter_provider
         )
-        RequestsInstrumentor().instrument()
