@@ -1,5 +1,4 @@
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
 
 from klym_telemetry.instrumenters.base import KLYMInstrumentor
 
