@@ -8,9 +8,9 @@ def import_module(package: str, classname: str):
         print(module)
         if module:
             return getattr(module, classname)
-    except Exception:
+    except Exception as e:
         # Do something additional with the exception
-        return None
+        raise e
 
 
 def __get_optional_module(module_path: str) -> Any:
@@ -18,4 +18,4 @@ def __get_optional_module(module_path: str) -> Any:
         return importlib.import_module(module_path)
     except Exception as e:
         print(f"Error importing module {module_path}. Exception: {e}")
-        raise
+        raise e
