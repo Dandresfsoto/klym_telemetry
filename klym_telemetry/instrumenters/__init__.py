@@ -1,19 +1,21 @@
-from klym_telemetry.instrumenters.celery import _CeleryInstrumentor
-from klym_telemetry.instrumenters.django import _DjangoInstrumentor
-from klym_telemetry.instrumenters.fastapi import _FastAPIInstrumentor
-from klym_telemetry.instrumenters.postgres import _Psycopg2Instrumentor
-from klym_telemetry.instrumenters.requests import _RequestsInstrumentor
+from enum import Enum
+import klym_telemetry.instrumenters.module_import as importer
 
-FACTORIES = {
-    "fastapi": _FastAPIInstrumentor,
-    "django": _DjangoInstrumentor,
-    "celery": _CeleryInstrumentor,
-    "psycopg2": _Psycopg2Instrumentor,
-    "requests": _RequestsInstrumentor,
-}
+class SupportedInstrumenters(Enum):
 
+    INSTRUMENTERS = {
+        "fastapi": ("klym_telemetry.instrumenters.fastapi", "_FastAPIInstrumentor"),
+        "django": ("klym_telemetry.instrumenters.django", "_DjangoInstrumentor"),
+        "celery": ("klym_telemetry.instrumenters.celery", "_CeleryInstrumentor"),
+        "psycopg2": ("klym_telemetry.instrumenters.psycopg2", "_Psycopg2Instrumentor"),
+        "requests": ("klym_telemetry.instrumenters.requests", "_RequestsInstrumentor"),
+    }
 
 def instrument_app(app_type: str, **kwargs):
-    if app_type in FACTORIES:
-        return FACTORIES[app_type](**kwargs).instrument()
-    raise ValueError(f"Invalid app type: {app_type}")
+    try:
+        package = SupportedInstrumenters.INSTRUMENTERS.value.get(app_type)[0]
+        classname = SupportedInstrumenters.INSTRUMENTERS.value.get(app_type)[1]
+        return importer.import_module(package, classname)(**kwargs).instrument()
+    except Exception as e:
+        print(f"Dependency error. You need to import the instrumenter for {app_type} if you want to use it")
+        raise
