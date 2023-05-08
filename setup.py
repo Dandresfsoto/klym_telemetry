@@ -10,7 +10,7 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="klym-telemetry",
-    version="0.1.4",
+    version="0.1.9",
     description="Scaffold library",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -40,6 +40,7 @@ setup(
         'opentelemetry-instrumentation-sqlalchemy~=0.38b0',
         'opentelemetry-instrumentation-psycopg2~=0.38b0',
         'opentelemetry-instrumentation-celery~=0.38b0',
+        'opentelemetry-instrumentation-aiohttp-client~=0.38b0',
         'opentelemetry-exporter-otlp-proto-grpc~=1.17.0',
         'opentelemetry-propagator-aws-xray~=1.0.1',
         'opentelemetry-sdk-extension-aws~=2.0.1'

@@ -9,8 +9,6 @@ from klym_telemetry.helpers import KlymTelemetry
 
 
 class TracingDecoratorOptions:
-    # this script was taken from
-    # https://betterprogramming.pub/using-decorators-to-instrument-python-code-with-opentelemetry-traces-d7f1c7d6f632
     class NamingSchemes:
         @staticmethod
         def function_qualified_name(func: Callable):
