@@ -10,7 +10,7 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="klym-telemetry",
-    version="0.1.9",
+    version="0.1.10",
     description="Scaffold library",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -34,14 +34,14 @@ setup(
     include_package_data=True,
     packages=find_packages('.', exclude=['tests', 'tests.*']),
     install_requires=[
-        'opentelemetry-instrumentation-django~=0.38b0',
-        'opentelemetry-instrumentation-fastapi~=0.38b0',
-        'opentelemetry-instrumentation-requests~=0.38b0',
-        'opentelemetry-instrumentation-sqlalchemy~=0.38b0',
-        'opentelemetry-instrumentation-psycopg2~=0.38b0',
-        'opentelemetry-instrumentation-celery~=0.38b0',
-        'opentelemetry-instrumentation-aiohttp-client~=0.38b0',
-        'opentelemetry-exporter-otlp-proto-grpc~=1.17.0',
+        'opentelemetry-instrumentation-django~=0.40b0',
+        'opentelemetry-instrumentation-fastapi~=0.40b0',
+        'opentelemetry-instrumentation-requests~=0.40b0',
+        'opentelemetry-instrumentation-sqlalchemy~=0.40b0',
+        'opentelemetry-instrumentation-psycopg2~=0.40b0',
+        'opentelemetry-instrumentation-celery~=0.40b0',
+        'opentelemetry-instrumentation-aiohttp-client~=0.40b0',
+        'opentelemetry-exporter-otlp-proto-grpc~=1.19.0',
         'opentelemetry-propagator-aws-xray~=1.0.1',
         'opentelemetry-sdk-extension-aws~=2.0.1'
     ],
