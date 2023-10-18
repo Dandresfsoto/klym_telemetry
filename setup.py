@@ -10,7 +10,7 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="klym-telemetry",
-    version="0.1.10",
+    version="0.1.12",
     description="Scaffold library",
     long_description=long_description,
     long_description_content_type="text/markdown",

@@ -5,6 +5,7 @@ import klym_telemetry.instrumenters.module_import as importer
 class SupportedInstrumenters(Enum):
 
     INSTRUMENTERS = {
+        "python": ("klym_telemetry.instrumenters.python", "_PythonInstrumentor"),
         "fastapi": ("klym_telemetry.instrumenters.fastapi", "_FastAPIInstrumentor"),
         "airflow": ("klym_telemetry.instrumenters.airflow", "_AirflowInstrumentor"),
         "django": ("klym_telemetry.instrumenters.django", "_DjangoInstrumentor"),

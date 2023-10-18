@@ -10,6 +10,8 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.trace import _set_tracer_provider
+from opentelemetry.metrics._internal import _set_meter_provider
 
 
 class KLYMInstrumentor(ABC):
@@ -43,13 +45,13 @@ class KLYMInstrumentor(ABC):
     def tracer_provider(self):
         tracer_provider = TracerProvider(resource=self._resource, id_generator=AwsXRayIdGenerator())
         tracer_provider.add_span_processor(span_processor=self._processor)
-        trace.set_tracer_provider(tracer_provider=tracer_provider)
+        _set_tracer_provider(tracer_provider=tracer_provider, log=False)
         return tracer_provider
 
     @property
     def meter_provider(self):
         meter_provider = MeterProvider(resource=self._resource, metric_readers=[self._reader])
-        metrics.set_meter_provider(meter_provider)
+        _set_meter_provider(meter_provider, log=False)
         return meter_provider
 
     @abstractmethod

@@ -1,9 +1,17 @@
 # KLYM Telemetry
 A small library to add instrumentation in KLYM apps.
 
+### Publish in PYPI
+
+```
+pip install twine
+python setup.py sdist
+twine upload dist/*
+```
+
 ### Installation
 ```
-pip install git+https://github.com/Dandresfsoto/klym_telemetry.git#egg=klym_telemetry
+pip install klym-telemetry
 ```
 
 ### Get started
