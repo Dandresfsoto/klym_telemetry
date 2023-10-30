@@ -5,7 +5,7 @@ A small library to add instrumentation in KLYM apps.
 
 ```
 pip install twine
-python setup.py sdist
+python setup.py bdist_wheel
 twine upload dist/*
 ```
 
